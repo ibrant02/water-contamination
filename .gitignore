@@ -1,0 +1,25 @@
+# Byte compiled/optimized files
+*.py[cod]
+
+# Unit Tests/Coverage Reports
+.coverage
+.coverage.*
+.cache
+coverage.xml
+
+# pyenv
+.python-version
+*.egg-info/
+build/
+dist/
+
+# PyCharm
+.idea/
+
+# Environment Management
+.env
+.venv
+env/
+venv/
+ENV/
+*.cfg
