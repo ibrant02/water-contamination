@@ -1,26 +1,26 @@
 def build_input(fastq1, fastq2):
-    return "in1=" + fastq1 + " in2=" + fastq2
+    return "in1=" + fastq1 +  " in2=" + fastq2
 
-def build_nonmatching_output(fastq1, fastq2):
-    return "out1=" + fastq1 + " out2=" + fastq2
+def build_nonmatching_output(out1, out2):
+    return "out1=" + out1  +  " out2=" + out2
 
-def build_matching_output(fastq1, fastq2):
-    return "outm1=" + fastq1 + " outm2=" + fastq2
+def build_matching_output(outm1, outm2):
+    return "outm1=" + outm1 +  " outm2=" + outm2
 
-def build_reference(references):
-    return "ref=" + ",".join(references)
+def build_references(references):
+    return "ref=" + references
 
 def build_stats(stats):
     return "stats=" + stats
 
-def bulid_minavgquality(minavgquality=5):
+def build_minavgquality(minavgquality=5):
     return "minavgquality={}".format(minavgquality)
 
 def build_trimpolya(trimpolya=7):
-    return "trimpolya={}".format(trimpolya) 
+    return "trimpolya={}".format(trimpolya)
 
-def build_minilength(minilength=51):
-    return "minilength={}".format(minilength)
+def build_minlength(minlength=51):
+    return "minlength={}".format(minlength)
 
 def build_maxns(maxns=1):
     return "maxns={}".format(maxns)
@@ -34,7 +34,7 @@ def build_t(t=2):
 def build_zl(zl=6):
     return "zl={}".format(zl)
 
-def build_entropy(entropy=0.5): 
+def build_entropy(entropy=0.5):
    return "entropy={}".format(entropy)
 
 #def build_Xmx(Xmx=200):
@@ -45,24 +45,32 @@ def build_ow(ow="T"):
 
 def build_command(args):
 
-    string_list=[input, output, reference, stats, minavgquality, trimpolya, minilength, maxns, k, t, zl, entropy, Xmx, ow]
-    string_list.append("echo '{}'".format(igm//apps/bbmap/bbmap/bbduk.sh))
+    string_list=[]
+    string_list.append("/igm//apps/bbmap/bbmap/bbduk.sh")
 
-    input=build_input(args.input)
+    print(args.input)
+    fastq1, fastq2=args.input.split(",")
+    input=build_input(fastq1, fastq2)
     string_list.append(input)
 
-    
-    matching_output=build_matching_output(args.matching_output)
+    print(args.matching_output)
+    out1, out2=args.matching_output.split(",")
+    matching_output=build_matching_output(out1, out2)
     string_list.append(matching_output)
 
-    nonmatching_output=build_nonmatching_output(args.nonmatching_output)
-    string_list.appending(nonmatching_output)
+    print(args.nonmatching_output)
+    outm1, outm2=args.nonmatching_output.split(",")
+    nonmatching_output=build_nonmatching_output(outm1, outm2)
+    string_list.append(nonmatching_output)
 
+    print(args.stats)
     stats=build_stats(args.stats)
-    string_list.appending(stats)
- 
+    string_list.append(stats)
+
+    print(args.references)
     references=build_references(args.references)
     string_list.append(references)
+    references.split(",")
 
     trimpolya=build_trimpolya(args.trimpolya)
     string_list.append(trimpolya)
@@ -70,7 +78,7 @@ def build_command(args):
     minlength=build_minlength(args.minlength)
     string_list.append(minlength)
 
-    maxns=build_mans(args.maxns)
+    maxns=build_maxns(args.maxns)
     string_list.append(maxns)
 
     minavgquality=build_minavgquality(args.minavgquality)
@@ -92,4 +100,4 @@ def build_command(args):
     string_list.append(entropy)
 
     #Xmx=build_Xmx(200)
-    #string_list.append(Xmx)    
+    #string_list.append(Xmx)
