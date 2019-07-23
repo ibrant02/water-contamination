@@ -1,9 +1,9 @@
 import glob
 
-glob.glob('igm/projects/Water_Contamination/input', '*.gz') 
-glob.glob('igm/projects/Water_Contamination/output/matching_output', '*.gz')
-glob.glob('igm/projetcs/Water_Contamination/output/nonmatching_output', '*.gz')
-glob.glob('igm/projects/Water_Contamination/references', '*txt', '*gz', '*fatsa')
+glob.glob('igm/projects/Water_Contamination/input', '*.gz')
+glob.glob('igm/projects/Water_Contamination/output/matching_output')
+glob.glob('igm/projetcs/Water_Contamination/output/nonmatching_output')
+glob.glob('igm/projects/Water_Contamination/references')
 glob.glob('igm/projects/Water_Contamination/stats', '*.txt')
 
 def build_command(args):
@@ -17,4 +17,3 @@ def build_command(args):
     stats=glob(args.stats)
 
     reference=glob(args.reference)
-
