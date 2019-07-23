@@ -16,4 +16,4 @@ def build_command(args):
 
     stats=glob(args.stats)
 
-    reference=glob(args.reference)
+    references=glob(args.references)
