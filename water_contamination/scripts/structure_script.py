@@ -57,7 +57,7 @@ def build_reference(references):
 def build_stats(stats):
     return "stats=" + stats
 
-def bulid_minavgquality(minavgquality=5):
+def build_minavgquality(minavgquality=5):
     return "minavgquality={}".format(minavgquality)
 
 def build_trimpolya(trimpolya=7):
