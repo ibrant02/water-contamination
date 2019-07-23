@@ -1,19 +1,18 @@
 from water_contamination.lib.bbduk import build_command
 
 def main(*args, **kwargs):
-
     #import pdb; pdb.set_trace()
     import argparse
 
     parser=argparse.ArgumentParser()
-    parser.add_argument("-input", type=list, help="fastq1, fastq2 (Coma seperated)")
-    parser.add_argument("-nonmatching_output", type=list, help="out1 and out2")
-    parser.add_argument("-matching_output", type=list, help="outm1 and outm2")
-    parser.add_argument("-references", type=list, help="references, reference (Coma seperated)")
+    parser.add_argument("-input", type=str, help="fastq1, fastq2 (Coma seperated)")
+    parser.add_argument("--nonmatching_output", "-out", type=str, help="out1 and out2")
+    parser.add_argument("--matching_output", "-outm", type=str, help="outm1 and outm2")
+    parser.add_argument("-references", type=str help="references, reference (Coma seperated)")
     parser.add_argument("-stats", type=list, help="stats")
     parser.add_argument("-minavgquality", type=int, default=5, help="choose a minavgquality value or stay with the default of 5")
     parser.add_argument("-trimpolya", type=int, default=7, help="choose a trimpolya value or stay with the default of 7")
-    parser.add_argument("-minilength", type=int, default=51, help="choose a minilength value or stay with the default of 51")
+    parser.add_argument("-minlength", type=int, default=51, help="choose a minlength value or stay with the default of 51")
     parser.add_argument("-maxns", type=int, default=1, help="choose a maxns value or stay with the default of 1")
     parser.add_argument("-k", type=int, default=25, help="choose a k value or stay with the default of 25")
     parser.add_argument("-t", type=int, default=2, help="choose a t value or stay with the default of 2")
@@ -28,7 +27,7 @@ def main(*args, **kwargs):
     if args.trimpolya:
         print("trimpolya={}".format(args.trimpolya))
     if args.minilength:
-        print("minilength={}".format(args.minilength))
+        print("minlength={}".format(args.minlength))
     if args.maxns:
         print("maxns={}".format(args.maxns))
         print(type(args.maxns))
@@ -64,8 +63,8 @@ def bulid_minavgquality(minavgquality=5):
 def build_trimpolya(trimpolya=7):
     return "trimpolya={}".format(trimpolya)
 
-def build_minilength(minilength=51):
-    return "minilength={}".format(minilength)
+def build_minlength(minilength=51):
+    return "minlength={}".format(minlength)
 
 def build_maxns(maxns=1):
     return "maxns={}".format(maxns)
@@ -87,16 +86,21 @@ def build_ow(ow="T"):
 
 def build_command(args):
 
-    string_list=[input, output, reference, stats, minavgquality, trimpolya, minilength, maxns, k, t, zl, entropy, ow]
-    string_list.append("echo '{}'".format(igm//apps/bbmap/bbmap/bbduk.sh))
+    string_list=[]
+    string_list.append(igm//apps/bbmap/bbmap/bbduk.sh)
 
+    print(args.input)
+    fastq1, fastq2=args.input.split(",")
     input=build_input(args.input)
     string_list.append(input)
 
-
+    print(args.matching_output)
+    fastq1, fastq2=args.matching_output(",")
     matching_output=build_matching_output(args.matching_output)
     string_list.append(matching_output)
 
+    print(args.nonmatching_output)
+    fastq1, fastq2=args.nonmatching_output(",")
     nonmatching_output=build_nonmatching_output(args.nonmatching_output)
     string_list.appending(nonmatching_output)
 
@@ -132,4 +136,3 @@ def build_command(args):
 
     entropy=build_entropy(args.entropy)
     string_list.append(entropy)
-
