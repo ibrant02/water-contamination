@@ -17,8 +17,11 @@ def build_command(args, command):
             continue
         arg_value = getattr(args, arg)
         if not arg.startswith('X'):
-            string_list.append("-{}={}".format(arg, arg_value))
+            if not arg_value == "true":
+                string_list.append("-{} {}".format(arg, arg_value))
+            else:
+                string_list.append("-{}".format(arg))
         else:
-            string_list.append("--{}={}".format(arg, arg_value))
+            string_list.append("--{} {}".format(arg, arg_value))
     string_list.append(command)
     return " ".join(string_list)
