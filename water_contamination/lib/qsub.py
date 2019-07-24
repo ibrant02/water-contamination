@@ -1,4 +1,4 @@
-QSUB_ARGUMENTS = ['N', 'cwd', 'pe', 'q', 'S', 'V', 'j', 'b', 'Xmx']
+QSUB_ARGUMENTS = ['N', 'cwd', 'pe', 'q', 'S', 'V', 'j', 'b']
 
 
 def build_command(args, command):
