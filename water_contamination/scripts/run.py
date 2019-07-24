@@ -38,12 +38,11 @@ def validate_arguments(args):
         empty list if the arguments are valid, list of str if they aren't
     """
     errors = []
-    if not args.config:
-        required_args = ['input', 'nonmatching_output', 'matching_output', 'references', 'stats',
-                         'N']
-        for required in required_args:
-            if not getattr(args, required):
-                errors.append("The {} argument is required if a config file is not specified")
+    required_args = ['input', 'nonmatching_output', 'matching_output', 'references', 'stats',
+                     'N']
+    for required in required_args:
+        if not getattr(args, required):
+            errors.append("The {} argument is required".format(required))
     return errors
 
 
@@ -79,15 +78,16 @@ def main(*args, **kwargs):
     qsub_group.add_argument("--Xmx", type=str, default="200g", help="How much memory should be allocated to this qsub task")
 
     args = parser.parse_args()
+
+    if args.config:
+        args = parse_config(args.config)
+
     errors = validate_arguments(args)
     if errors:
         print("Encountered the following errors:")
         for error in errors:
             print(error)
         return
-
-    if args.config:
-        args = parse_config(args.config)
 
     bbduk_command = bbduk.build_command(args)
     qsub_command = qsub.build_command(args, bbduk_command)
