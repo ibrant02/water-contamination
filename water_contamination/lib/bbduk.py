@@ -103,4 +103,6 @@ def build_command(args):
     entropy = build_entropy(args.entropy)
     string_list.append(entropy)
 
+    string_list.append("-Xmx{}".format(args.Xmx))
+
     return " ".join(string_list)
