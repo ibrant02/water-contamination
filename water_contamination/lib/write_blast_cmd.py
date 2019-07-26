@@ -70,7 +70,6 @@ def build_blast_command(args):
     command_list.append(build_query_input(args.fasta_input))
     command_list.append(build_output_format(args.output_format))
 
-    print(" ".join(command_list))
     return " ".join(command_list)
 
 
