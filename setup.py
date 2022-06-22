@@ -11,7 +11,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'biopython==1.72',
-        'numpy==1.15.4',
+        'numpy==1.22.0',
     ],
     entry_points={'console_scripts':['find_contaminants=water_contamination.scripts.run:main']}
 )
